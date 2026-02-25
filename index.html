@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>anschi — Press Kit</title>
+<meta name="description" content="anschi — DJ aus Berlin. Melodic Techno, Indie Dance, Progressive House. Press Kit, Bio, Photos & Booking.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     EDIT GUIDE — was du wo änderst:
+     - Fotos:       suche nach "FOTO_" — ersetze src="" mit deinem Bildpfad
+     - Bio:         suche nach "BIO_DE" und "BIO_EN"
+     - Gigs:        suche nach "GIGS_PAST"
+     - Kalender:    suche nach "KALENDER_DATEN"
+     - Links:       suche nach "LINKS_"
+     - Email:       suche nach "DEINE_EMAIL"
+     ============================================================ */
+
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #111;
+    --bg3: #181818;
+    --accent: #c8f03d;
+    --accent2: #ff4d6d;
+    --text: #e8e4dc;
+    --muted: #666;
+    --border: #252525;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Syne', sans-serif; overflow-x: hidden; cursor: none; }
+
+  /* CURSOR */
+  .cursor { width: 12px; height: 12px; background: var(--accent); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; mix-blend-mode: difference; }
+  .cursor-ring { width: 36px; height: 36px; border: 1px solid var(--accent); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; opacity: 0.5; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 3rem; background: rgba(10,10,10,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; letter-spacing: -0.03em; color: var(--accent); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+  .lang-toggle { display: flex; gap: 0.4rem; }
+  .lang-btn { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; padding: 0.3rem 0.6rem; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: none; transition: all 0.2s; }
+  .lang-btn.active, .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; position: relative; overflow: hidden; padding-top: 60px; }
+  .hero-left { display: flex; flex-direction: column; justify-content: flex-end; padding: 5rem 3rem 5rem 5rem; position: relative; z-index: 2; }
+  .hero-tag { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s 0.2s forwards; }
+  .hero-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(5rem, 11vw, 10rem); line-height: 0.88; letter-spacing: -0.04em; white-space: nowrap; opacity: 0; animation: fadeUp 0.8s 0.4s forwards; }
+  .hero-genres { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 2.5rem; opacity: 0; animation: fadeUp 0.8s 0.6s forwards; }
+  .genre-pill { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; padding: 0.35rem 0.9rem; border: 1px solid var(--border); color: var(--muted); }
+  .hero-cta { margin-top: 3rem; display: flex; gap: 1rem; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.8s 0.8s forwards; }
+  .btn-primary { font-family: 'DM Mono', monospace; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.85rem 2rem; background: var(--accent); color: #0a0a0a; text-decoration: none; font-weight: 600; cursor: none; transition: transform 0.15s, background 0.2s; display: inline-block; border: none; }
+  .btn-primary:hover { transform: translate(-2px,-2px); background: #d4f55a; }
+  .btn-outline { font-family: 'DM Mono', monospace; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.85rem 2rem; border: 1px solid var(--text); color: var(--text); text-decoration: none; cursor: none; transition: border-color 0.2s, color 0.2s; display: inline-block; }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+  .hero-right { position: relative; overflow: hidden; }
+  .hero-img-wrap { position: absolute; inset: 0; opacity: 0; animation: fadeIn 1.2s 0.5s forwards; }
+  .hero-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: grayscale(15%) contrast(1.05); }
+  .hero-img-overlay { position: absolute; inset: 0; background: linear-gradient(to right, var(--bg) 0%, transparent 40%), linear-gradient(to top, var(--bg) 0%, transparent 30%); }
+  .hero-scroll { position: absolute; bottom: 3rem; left: 5rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 1rem; opacity: 0; animation: fadeUp 0.8s 1.2s forwards; }
+  .hero-scroll::before { content: ''; width: 40px; height: 1px; background: var(--muted); }
+
+  /* SECTIONS */
+  section { padding: 6rem 5rem; }
+  .section-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 3rem; display: flex; align-items: center; gap: 1.5rem; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 6vw, 5.5rem); line-height: 0.9; margin-bottom: 2rem; }
+
+  /* BIO */
+  .bio-section { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .bio-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 5rem; align-items: start; }
+  .bio-facts { position: sticky; top: 100px; }
+  .fact-item { padding: 1.2rem 0; border-bottom: 1px solid var(--border); }
+  .fact-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+  .fact-value { font-size: 0.9rem; font-weight: 600; line-height: 1.5; }
+  .bio-text p { font-size: 1rem; color: #c8c4bc; margin-bottom: 1.2rem; line-height: 1.75; }
+  .bio-text.hidden, .hidden { display: none; }
+  .lang-tab-wrap { display: inline-flex; margin-bottom: 2.5rem; border: 1px solid var(--border); }
+  .lang-tab { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; padding: 0.5rem 1.2rem; background: transparent; color: var(--muted); border: none; cursor: none; transition: all 0.2s; }
+  .lang-tab.active { background: var(--accent); color: #000; }
+
+  /* PHOTOS */
+  .photos-section { background: var(--bg); }
+  .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+  .photo-item { aspect-ratio: 3/4; overflow: hidden; position: relative; background: var(--bg3); }
+  .photo-item img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(25%); transition: filter 0.4s, transform 0.5s; display: block; }
+  .photo-item:hover img { filter: grayscale(0%); transform: scale(1.04); }
+  .photo-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--muted); gap: 0.8rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; }
+  .photo-placeholder svg { opacity: 0.25; }
+  .photo-placeholder .ph-hint { font-size: 0.55rem; color: #444; margin-top: 0.3rem; }
+  .photo-download { position: absolute; bottom: 0; left: 0; right: 0; padding: 0.8rem; background: linear-gradient(transparent, rgba(0,0,0,0.85)); opacity: 0; transition: opacity 0.3s; display: flex; justify-content: flex-end; }
+  .photo-item:hover .photo-download { opacity: 1; }
+  .photo-download-btn { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; padding: 0.3rem 0.7rem; background: var(--accent); color: #000; text-decoration: none; cursor: none; font-weight: 600; }
+  .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 2.5rem 1rem 1rem; background: linear-gradient(transparent, rgba(0,0,0,0.7)); opacity: 0; transition: opacity 0.3s; }
+  .photo-item:hover .photo-caption { opacity: 1; }
+  .photo-caption span { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: rgba(255,255,255,0.6); letter-spacing: 0.1em; }
+  .photos-note { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 2rem; line-height: 1.7; }
+
+  /* MIXES / SOUNDCLOUD */
+  .mixes-section { background: var(--bg2); border-top: 1px solid var(--border); }
+  .mixes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); }
+  .mix-card { background: var(--bg2); padding: 2rem; position: relative; overflow: hidden; transition: background 0.3s; }
+  .mix-card:hover { background: var(--bg3); }
+  .mix-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--border); transition: background 0.3s; }
+  .mix-card:hover::before { background: var(--accent); }
+  .mix-tag { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+  .mix-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.04em; margin-bottom: 0.4rem; line-height: 1; }
+  .mix-meta { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--muted); letter-spacing: 0.08em; margin-bottom: 1.2rem; }
+  .mix-link { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.12em; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 0.15rem; transition: color 0.2s, border-color 0.2s; }
+  .mix-link:hover { color: var(--accent); border-color: var(--accent); }
+  .mix-embed { margin-top: 1rem; }
+  .mix-embed iframe { width: 100%; border: none; }
+  .mix-placeholder { background: var(--bg3); border: 1px dashed var(--border); padding: 1.5rem; display: flex; align-items: center; gap: 1rem; margin-top: 1rem; }
+  .mix-placeholder p { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.08em; line-height: 1.6; }
+
+  /* GIGS */
+  .gigs-section { background: var(--bg); border-top: 1px solid var(--border); }
+  .gig-tabs { display: flex; margin-bottom: 3rem; border-bottom: 1px solid var(--border); }
+  .gig-tab { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 1.8rem; background: transparent; color: var(--muted); border: none; border-bottom: 2px solid transparent; margin-bottom: -1px; cursor: none; transition: all 0.2s; }
+  .gig-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .gig-tab:hover:not(.active) { color: var(--text); }
+  .gig-panel { display: none; }
+  .gig-panel.active { display: block; }
+  .gig-category { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--border); letter-spacing: 0.05em; margin: 2.5rem 0 0.5rem; }
+  .gig-list { list-style: none; }
+  .gig-item { display: grid; grid-template-columns: 120px 1fr 1fr auto; gap: 2rem; align-items: center; padding: 1.4rem 0; border-bottom: 1px solid var(--border); transition: background 0.2s; }
+  .gig-item:hover { background: rgba(200,240,61,0.03); }
+  .gig-date { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; }
+  .gig-venue { font-weight: 700; font-size: 0.95rem; }
+  .gig-event { font-size: 0.85rem; color: var(--muted); font-style: italic; }
+  .gig-city { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; color: var(--accent); text-align: right; white-space: nowrap; }
+
+  /* CALENDAR */
+  .calendar-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .calendar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; }
+  .cal-nav-btn { width: 32px; height: 32px; background: transparent; border: 1px solid var(--border); color: var(--text); cursor: none; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; transition: border-color 0.2s, color 0.2s; }
+  .cal-nav-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .cal-month-label { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.08em; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+  .cal-day-header { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-align: center; padding: 0.5rem 0; color: var(--muted); }
+  .cal-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 0.72rem; position: relative; transition: background 0.15s; }
+  .cal-day.today { color: var(--accent); font-weight: 700; }
+  .cal-day.today::after { content: ''; position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
+  .cal-day.booked { background: rgba(255,77,109,0.12); color: var(--accent2); }
+  .cal-day.booked::before { content: ''; position: absolute; inset: 2px; border: 1px solid rgba(255,77,109,0.3); }
+  .cal-day.available { background: rgba(200,240,61,0.07); color: var(--accent); cursor: none; }
+  .cal-day.available:hover { background: rgba(200,240,61,0.16); }
+  .cal-day.past { color: #2e2e2e; }
+  .cal-day.selected { background: var(--accent) !important; color: #000 !important; font-weight: 700; }
+  .cal-legend { display: flex; gap: 1.5rem; margin-top: 1.2rem; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 0.5rem; font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; color: var(--muted); }
+  .legend-dot { width: 10px; height: 10px; border: 1px solid; }
+  .legend-dot.booked { background: rgba(255,77,109,0.2); border-color: rgba(255,77,109,0.4); }
+  .legend-dot.available { background: rgba(200,240,61,0.15); border-color: rgba(200,240,61,0.4); }
+  .legend-dot.today-dot { background: transparent; border-color: var(--accent); border-radius: 50%; }
+  .upcoming-list { list-style: none; margin-bottom: 1.5rem; }
+  .upcoming-item { display: flex; align-items: center; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid var(--border); }
+  .upcoming-date-badge { background: rgba(255,77,109,0.15); border: 1px solid rgba(255,77,109,0.3); color: var(--accent2); font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em; padding: 0.2rem 0.5rem; white-space: nowrap; flex-shrink: 0; }
+  .upcoming-venue { font-weight: 700; font-size: 0.88rem; }
+  .upcoming-event { font-size: 0.78rem; color: var(--muted); }
+
+  /* BOOKING FORM */
+  .booking-form-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .booking-info h3 { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; margin-bottom: 1rem; line-height: 1; }
+  .booking-info p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+  .booking-checklist { list-style: none; }
+  .booking-checklist li { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.06em; color: var(--muted); padding: 0.5rem 0; border-bottom: 1px solid var(--border); display: flex; gap: 0.8rem; align-items: center; }
+  .booking-checklist li::before { content: '✓'; color: var(--accent); }
+  .booking-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-field { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .form-input, .form-textarea { background: var(--bg3); border: 1px solid var(--border); color: var(--text); font-family: 'Syne', sans-serif; font-size: 0.88rem; padding: 0.75rem 1rem; outline: none; transition: border-color 0.2s; width: 100%; }
+  .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
+  .form-textarea { resize: vertical; min-height: 110px; }
+  .form-selected-date { font-family: 'DM Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; padding: 0.6rem 1rem; background: rgba(200,240,61,0.07); border: 1px solid rgba(200,240,61,0.25); color: var(--accent); min-height: 2.4rem; display: flex; align-items: center; }
+  .form-submit { font-family: 'DM Mono', monospace; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 1rem 2rem; background: var(--accent); color: #000; border: none; cursor: none; font-weight: 700; transition: transform 0.15s, background 0.2s; margin-top: 0.5rem; }
+  .form-submit:hover { transform: translate(-2px,-2px); background: #d4f55a; }
+  .form-success { display: none; padding: 2rem; background: rgba(200,240,61,0.07); border: 1px solid rgba(200,240,61,0.25); text-align: center; }
+  .form-success.show { display: block; }
+  .form-success p { font-family: 'DM Mono', monospace; font-size: 0.78rem; letter-spacing: 0.1em; color: var(--accent); line-height: 1.8; }
+  .form-success .big { font-size: 2rem; margin-bottom: 0.5rem; }
+
+  /* RIDER */
+  .rider-section { background: var(--bg2); border-top: 1px solid var(--border); }
+  .rider-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .rider-card { border: 1px solid var(--border); padding: 2rem; position: relative; overflow: hidden; }
+  .rider-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); }
+  .rider-card-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.05em; margin-bottom: 1.5rem; }
+  .rider-item { display: flex; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border); font-size: 0.88rem; line-height: 1.4; }
+  .rider-item:last-child { border-bottom: none; }
+  .rider-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; margin-top: 0.45rem; flex-shrink: 0; }
+  .rider-note { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); margin-top: 0.2rem; }
+  .rider-important { background: rgba(255,77,109,0.04); border-color: rgba(255,77,109,0.2); grid-column: 1 / -1; }
+  .rider-important::before { background: var(--accent2); }
+  .rider-important .rider-dot { background: var(--accent2); }
+
+  /* CONTACT */
+  .contact-section { background: var(--bg); border-top: 1px solid var(--border); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--border); margin-top: 2rem; }
+  .contact-card { background: var(--bg); padding: 2.5rem; text-align: center; transition: background 0.3s; }
+  .contact-card:hover { background: var(--bg3); }
+  .contact-card-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+  .contact-card-value { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .contact-card-value a { color: var(--text); text-decoration: none; transition: color 0.2s; }
+  .contact-card-value a:hover { color: var(--accent); }
+  .contact-card-sub { font-size: 0.8rem; color: var(--muted); }
+  .social-row { display: flex; gap: 1rem; justify-content: center; margin-top: 3rem; flex-wrap: wrap; }
+  .social-link { display: flex; align-items: center; gap: 0.7rem; font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; color: var(--muted); text-decoration: none; padding: 0.7rem 1.4rem; border: 1px solid var(--border); cursor: none; transition: all 0.2s; }
+  .social-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* FOOTER */
+  footer { padding: 2rem 5rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  footer .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; letter-spacing: -0.03em; color: var(--accent); }
+  footer p { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { height: 55vh; }
+    .hero-left { padding: 2rem 1.5rem 3rem; justify-content: flex-end; }
+    .bio-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .bio-facts { position: static; }
+    .photo-grid { grid-template-columns: 1fr 1fr; }
+    .mixes-grid { grid-template-columns: 1fr; }
+    .rider-grid { grid-template-columns: 1fr; }
+    .rider-important { grid-column: 1; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .gig-item { grid-template-columns: 90px 1fr; row-gap: 0.2rem; }
+    .gig-event, .gig-city { grid-column: 2; }
+    .gig-city { text-align: left; }
+    .calendar-wrap { grid-template-columns: 1fr; }
+    .booking-form-wrap { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">anschi</a>
+  <ul class="nav-links">
+    <li><a href="#bio">Bio</a></li>
+    <li><a href="#photos">Photos</a></li>
+    <li><a href="#mixes">Mixes</a></li>
+    <li><a href="#gigs">Gigs & Book</a></li>
+    <li><a href="#rider">Tech Rider</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('de')" id="btn-de">DE</button>
+    <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+     FOTO_HERO: ersetze src="" mit deinem Bildpfad, z.B. src="fotos/hero.jpg"
+════════════════════════════════════════════ -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-tag">— Berlin / DJ &amp; Selector</div>
+    <h1 class="hero-name">anschi</h1>
+    <div class="hero-genres">
+      <span class="genre-pill">Melodic Techno</span>
+      <span class="genre-pill">Indie Dance</span>
+      <span class="genre-pill">Progressive House</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#gigs" class="btn-primary" onclick="setTimeout(()=>switchGigTab('booking'),400)">Book anschi</a>
+      <a href="#bio" class="btn-outline">Read Bio</a>
+    </div>
+    <div class="hero-scroll">Scroll to explore</div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-wrap">
+      <!-- FOTO_HERO: Ersetze src="" z.B. mit src="fotos/hero.jpg" -->
+      <div style="width:100%;height:100%;background:linear-gradient(135deg,#0d1a0d 0%,#111 50%,#0a0a12 100%);display:flex;align-items:center;justify-content:center;">
+        <div style="text-align:center;color:#2a2a2a;font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          <p style="margin-top:1rem;">FOTO_HERO</p>
+          <p style="margin-top:0.3rem;font-size:0.55rem;color:#222;">src="fotos/hero.jpg"</p>
+        </div>
+      </div>
+    </div>
+    <div class="hero-img-overlay"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     BIO — BIO_DE / BIO_EN
+════════════════════════════════════════════ -->
+<section class="bio-section" id="bio">
+  <div class="section-label">01 — Biography</div>
+  <div class="bio-grid">
+    <div class="bio-facts reveal">
+      <div class="fact-item">
+        <div class="fact-label">Location</div>
+        <div class="fact-value">Berlin, DE</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-label">Kollektiv</div>
+        <div class="fact-value">Insel der Visionen<br>Disko Dolce</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-label">Genre</div>
+        <div class="fact-value">Melodic Techno<br>Indie Dance<br>Progressive House</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-label">BPM Range</div>
+        <div class="fact-value">122 — 130</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-label">Typical Set</div>
+        <div class="fact-value">2 – 4 Stunden</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-label">Equipment</div>
+        <div class="fact-value">CDJ-2000NXS2<br>DJM-900NXS2<br>rekordbox USB</div>
+      </div>
+    </div>
+    <div class="bio-text reveal">
+      <div class="lang-tab-wrap">
+        <button class="lang-tab active" onclick="setLang('de')">Deutsch</button>
+        <button class="lang-tab" onclick="setLang('en')">English</button>
+      </div>
+
+      <!-- BIO_DE: Hier deutschen Text anpassen -->
+      <div id="bio-de">
+        <p>anschi kreiert energiegeladene Sets, die Melodic Techno mit dark, spicy Indie Dance vereinen. Ihr Sound bewegt sich zwischen tiefen, emotionalen Momenten, fesselnden Vocals und explosiven Bangern, die den Dancefloor mitreißen.</p>
+        <p>In ihrer Kindheit bewegte sie sich zwischen Musicalbühnen und Tanzwettbewerben, bis Berlin ihre Leidenschaft für elektronische Musik entfachte. Ihre ersten Schritte als DJ machte sie am Afrika Burn in Südafrika, wo sie bis heute aktiv mitwirkt und die gelebte kreative Freiheit ihren Stil geprägt hat.</p>
+        <p>Sie ist ebenso oft hinter den Decks zu finden, wie sie auf Festivals und in Clubs rund um den Globus tanzt, immer auf der Suche nach neuen Inspirationen, die ihren Sound beeinflussen. Ihre Residencies und Gigs in Berliner Institutionen wie Ritter Butzke, KitKat Club, Sisyphos und Bahnwärter Thiel sprechen für sich.</p>
+      </div>
+
+      <!-- BIO_EN: Hier englischen Text anpassen -->
+      <div id="bio-en" class="hidden">
+        <p>anschi creates high-energy sets that blend Melodic Techno with dark, spicy Indie Dance. Her sound moves between deep emotional moments, captivating vocals, and explosive bangers that take over the dancefloor.</p>
+        <p>Her journey started between musical stages and dance competitions before Berlin ignited her passion for electronic music. She took her first steps as a DJ at Afrika Burn in South Africa — an experience that continues to shape the creative freedom at the core of her style.</p>
+        <p>You're just as likely to find her behind the decks as you are to spot her dancing at festivals and clubs around the globe, always hunting for the next inspiration to feed her sound. Her gigs at Berlin institutions like Ritter Butzke, KitKat Club, Sisyphos, and Bahnwärter Thiel speak for themselves.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     PHOTOS
+     FOTO_1 bis FOTO_6: ersetze die Platzhalter mit echten <img>-Tags
+     Beispiel: <img src="fotos/live1.jpg" alt="anschi live @ Sisyphos">
+════════════════════════════════════════════ -->
+<section class="photos-section" id="photos">
+  <div class="section-label">02 — Press Photos</div>
+  <h2 class="section-title reveal">Photos</h2>
+  <p class="photos-note reveal">Alle Fotos frei zur Nutzung für Presse &amp; Promo. Bitte Fotograf:in creditieren. · All photos free to use for press &amp; promotional purposes. Please credit photographer.</p>
+
+  <div class="photo-grid">
+
+    <!-- FOTO_1: ersetze durch <img src="fotos/press1.jpg" alt="..."> -->
+    <div class="photo-item reveal">
+      <div class="photo-placeholder">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+        <span>FOTO_1</span>
+        <span class="ph-hint">src="fotos/press1.jpg"</span>
+      </div>
+      <div class="photo-caption"><span>© Fotograf:in</span></div>
+      <div class="photo-download"><a href="fotos/press1.jpg" class="photo-download-btn" download>↓ Download</a></div>
+    </div>
+
+    <!-- FOTO_2 -->
+    <div class="photo-item reveal">
+      <div class="photo-placeholder">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+        <span>FOTO_2</span>
+        <span class="ph-hint">src="fotos/press2.jpg"</span>
+      </div>
+      <div class="photo-caption"><span>© Fotograf:in</span></div>
+      <div class="photo-download"><a href="fotos/press2.jpg" class="photo-download-btn" download>↓ Download</a></div>
+    </div>
+
+    <!-- FOTO_3 -->
+    <div class="photo-item reveal">
+      <div class="photo-placeholder">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+        <span>FOTO_3</span>
+        <span class="ph-hint">src="fotos/press3.jpg"</span>
+      </div>
+      <div class="photo-caption"><span>© Fotograf:in</span></div>
+      <div class="photo-download"><a href="fotos/press3.jpg" class="photo-download-btn" download>↓ Download</a></div>
+    </div>
+
+    <!-- FOTO_4 -->
+    <div class="photo-item reveal">
+      <div class="photo-placeholder">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+        <span>FOTO_4</span>
+        <span class="ph-hint">src="fotos/press4.jpg"</span>
+      </div>
+      <div class="photo-caption"><span>© Fotograf:in</span></div>
+      <div class="photo-download"><a href="fotos/press4.jpg" class="photo-download-btn" download>↓ Download</a></div>
+    </div>
+
+    <!-- FOTO_5 -->
+    <div class="photo-item reveal">
+      <div class="photo-placeholder">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+        <span>FOTO_5</span>
+        <span class="ph-hint">src="fotos/press5.jpg"</span>
+      </div>
+      <div class="photo-caption"><span>© Fotograf:in</span></div>
+      <div class="photo-download"><a href="fotos/press5.jpg" class="photo-download-btn" download>↓ Download</a></div>
+    </div>
+
+    <!-- FOTO_6 -->
+    <div class="photo-item reveal">
+      <div class="photo-placeholder">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+        <span>FOTO_6</span>
+        <span class="ph-hint">src="fotos/press6.jpg"</span>
+      </div>
+      <div class="photo-caption"><span>© Fotograf:in</span></div>
+      <div class="photo-download"><a href="fotos/press6.jpg" class="photo-download-btn" download>↓ Download</a></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     MIXES / SOUNDCLOUD
+     LINKS_SOUNDCLOUD: ersetze href="#" mit deinen echten Links
+     Für SoundCloud Embeds: ersetze src="" mit dem iframe-Code von SoundCloud
+     (SoundCloud → Share → Embed → copy src URL)
+════════════════════════════════════════════ -->
+<section class="mixes-section" id="mixes">
+  <div class="section-label">03 — Mixes & Recordings</div>
+  <h2 class="section-title reveal">Mixes</h2>
+
+  <div class="mixes-grid reveal">
+
+    <!-- MIX 1: LINKS_SOUNDCLOUD_1 -->
+    <div class="mix-card">
+      <div class="mix-tag">Latest Mix</div>
+      <div class="mix-title">Insel der Visionen Vol. 3</div>
+      <div class="mix-meta">120 min · Melodic Techno · 2024</div>
+      <!-- SoundCloud Embed: ersetze src mit deiner SoundCloud Track URL -->
+      <!-- <div class="mix-embed">
+        <iframe height="166" scrolling="no" allow="autoplay"
+          src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/DEINE_TRACK_ID&color=%23c8f03d&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">
+        </iframe>
+      </div> -->
+      <div class="mix-placeholder">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+        <p>SoundCloud Embed hier einfügen.<br>Kommentar oben entfernen &amp; src="" mit deiner Track-URL ersetzen.</p>
+      </div>
+      <!-- LINKS_SOUNDCLOUD_1: ersetze # -->
+      <a href="#" target="_blank" class="mix-link" style="margin-top:1rem;display:inline-block;">→ SoundCloud öffnen</a>
+    </div>
+
+    <!-- MIX 2: LINKS_SOUNDCLOUD_2 -->
+    <div class="mix-card">
+      <div class="mix-tag">Live Recording</div>
+      <div class="mix-title">Sisyphos Hammergarten</div>
+      <div class="mix-meta">90 min · Indie Dance · Nov 2024</div>
+      <div class="mix-placeholder">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+        <p>SoundCloud Embed hier einfügen.<br>Kommentar oben entfernen &amp; src="" mit deiner Track-URL ersetzen.</p>
+      </div>
+      <!-- LINKS_SOUNDCLOUD_2: ersetze # -->
+      <a href="#" target="_blank" class="mix-link" style="margin-top:1rem;display:inline-block;">→ SoundCloud öffnen</a>
+    </div>
+
+    <!-- MIX 3: LINKS_SOUNDCLOUD_3 -->
+    <div class="mix-card">
+      <div class="mix-tag">Promo Mix</div>
+      <div class="mix-title">Disko Dolce Series</div>
+      <div class="mix-meta">60 min · Progressive House · 2024</div>
+      <div class="mix-placeholder">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+        <p>SoundCloud Embed hier einfügen.<br>Kommentar oben entfernen &amp; src="" mit deiner Track-URL ersetzen.</p>
+      </div>
+      <!-- LINKS_SOUNDCLOUD_3: ersetze # -->
+      <a href="#" target="_blank" class="mix-link" style="margin-top:1rem;display:inline-block;">→ SoundCloud öffnen</a>
+    </div>
+
+    <!-- MIX 4: LINKS_SOUNDCLOUD_4 -->
+    <div class="mix-card">
+      <div class="mix-tag">Afrika Burn</div>
+      <div class="mix-title">Tankwa Karoo Stage Set</div>
+      <div class="mix-meta">120 min · Deep / Dark · Apr 2024</div>
+      <div class="mix-placeholder">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+        <p>SoundCloud Embed hier einfügen.<br>Kommentar oben entfernen &amp; src="" mit deiner Track-URL ersetzen.</p>
+      </div>
+      <!-- LINKS_SOUNDCLOUD_4: ersetze # -->
+      <a href="#" target="_blank" class="mix-link" style="margin-top:1rem;display:inline-block;">→ SoundCloud öffnen</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     GIGS & BOOKING
+     GIGS_PAST: Vergangene Gigs bearbeiten
+     KALENDER_DATEN: im Script-Block weiter unten
+════════════════════════════════════════════ -->
+<section class="gigs-section" id="gigs">
+  <div class="section-label">04 — Gigs &amp; Booking</div>
+  <h2 class="section-title reveal">Gigs &amp;<br>Availability</h2>
+
+  <div class="reveal">
+    <div class="gig-tabs">
+      <button class="gig-tab active" onclick="switchGigTab('past')">Past Gigs</button>
+      <button class="gig-tab" onclick="switchGigTab('calendar')">Availability</button>
+      <button class="gig-tab" onclick="switchGigTab('booking')">Book anschi</button>
+    </div>
+
+    <!-- GIGS_PAST: Gig-Liste bearbeiten -->
+    <div class="gig-panel active" id="panel-past">
+      <div class="gig-category">Clubs</div>
+      <ul class="gig-list">
+        <li class="gig-item">
+          <span class="gig-date">Nov 2024</span>
+          <span class="gig-venue">Sisyphos</span>
+          <span class="gig-event">Hammergarten</span>
+          <span class="gig-city">Berlin, DE</span>
+        </li>
+        <li class="gig-item">
+          <span class="gig-date">Sep 2024</span>
+          <span class="gig-venue">KitKat Club</span>
+          <span class="gig-event">CarneBall Bizarre</span>
+          <span class="gig-city">Berlin, DE</span>
+        </li>
+        <li class="gig-item">
+          <span class="gig-date">Jul 2024</span>
+          <span class="gig-venue">Ritter Butzke</span>
+          <span class="gig-event">Insel der Visionen</span>
+          <span class="gig-city">Berlin, DE</span>
+        </li>
+        <li class="gig-item">
+          <span class="gig-date">Apr 2024</span>
+          <span class="gig-venue">Birgit &amp; Bier</span>
+          <span class="gig-event">Disko Dolce</span>
+          <span class="gig-city">Berlin, DE</span>
+        </li>
+        <li class="gig-item">
+          <span class="gig-date">Jan 2024</span>
+          <span class="gig-venue">Bahnwärter Thiel</span>
+          <span class="gig-event">—</span>
+          <span class="gig-city">Berlin, DE</span>
+        </li>
+        <li class="gig-item">
+          <span class="gig-date">Oct 2023</span>
+          <span class="gig-venue">Tresor</span>
+          <span class="gig-event">—</span>
+          <span class="gig-city">Berlin, DE</span>
+        </li>
+      </ul>
+
+      <div class="gig-category">Festivals</div>
+      <ul class="gig-list">
+        <li class="gig-item">
+          <span class="gig-date">Apr 2024</span>
+          <span class="gig-venue">Afrika Burn</span>
+          <span class="gig-event">Mutant Vehicle Stage</span>
+          <span class="gig-city">Tankwa Karoo, ZA</span>
+        </li>
+        <li class="gig-item">
+          <span class="gig-date">Aug 2024</span>
+          <span class="gig-venue">Tarmac Festival</span>
+          <span class="gig-event">—</span>
+          <span class="gig-city">DE</span>
+        </li>
+        <li class="gig-item">
+          <span class="gig-date">Jun 2023</span>
+          <span class="gig-venue">Mantra</span>
+          <span class="gig-event">—</span>
+          <span class="gig-city">DE</span>
+        </li>
+        <li class="gig-item">
+          <span class="gig-date">Apr 2023</span>
+          <span class="gig-venue">Afrika Burn</span>
+          <span class="gig-event">Camp Stage</span>
+          <span class="gig-city">Tankwa Karoo, ZA</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- AVAILABILITY CALENDAR -->
+    <div class="gig-panel" id="panel-calendar">
+      <div class="calendar-wrap">
+        <div>
+          <div class="calendar-header">
+            <button class="cal-nav-btn" onclick="calNav(-1)">&#8592;</button>
+            <div class="cal-month-label" id="cal-month-label"></div>
+            <button class="cal-nav-btn" onclick="calNav(1)">&#8594;</button>
+          </div>
+          <div class="cal-grid" id="cal-grid"></div>
+          <div class="cal-legend">
+            <div class="legend-item"><div class="legend-dot booked"></div>Confirmed gig</div>
+            <div class="legend-item"><div class="legend-dot available"></div>Available</div>
+            <div class="legend-item"><div class="legend-dot today-dot"></div>Today</div>
+          </div>
+          <p style="margin-top:1.5rem;font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--muted);letter-spacing:0.08em;line-height:1.7;">
+            Wochenenden ohne Markierung sind verfügbar.<br>Klicke ein grünes Datum um es direkt ins Buchungsformular zu übernehmen.
+          </p>
+        </div>
+        <div>
+          <p style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1.2rem;">Upcoming Confirmed</p>
+          <ul class="upcoming-list" id="upcoming-list"></ul>
+          <p style="font-size:0.85rem;color:var(--muted);line-height:1.75;margin-bottom:2rem;">
+            anschi ist in Berlin basiert — für Gigs außerhalb Berlins werden Reise &amp; Unterkunft vereinbart. Bei Interesse an einem konkreten Datum bitte Buchungsanfrage nutzen.
+          </p>
+          <button class="btn-primary" onclick="switchGigTab('booking')" style="cursor:none;">Booking Request →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOOKING FORM -->
+    <div class="gig-panel" id="panel-booking">
+      <div class="booking-form-wrap">
+        <div class="booking-info">
+          <h3>Send a<br>Booking<br>Request</h3>
+          <p>Schick eine Anfrage — Antwort innerhalb von 48–72 Stunden. Für dringende Anfragen gerne auch per Instagram DM.</p>
+          <ul class="booking-checklist" style="margin-top:1.5rem;">
+            <li>Antwort innerhalb 48–72h</li>
+            <li>Fee &amp; Details auf Anfrage</li>
+            <li>Tech Rider in diesem Press Kit</li>
+            <li>Out-of-town Gigs möglich</li>
+            <li>Mindest-Set: 2 Stunden</li>
+            <li>Promo-Mix auf Anfrage verfügbar</li>
+          </ul>
+        </div>
+        <div>
+          <div class="form-success" id="form-success">
+            <p class="big">✓</p>
+            <p>Anfrage gesendet!<br><br>anschi meldet sich innerhalb von 48–72 Stunden.<br>Bitte auch Spam-Ordner checken.</p>
+          </div>
+          <!-- BOOKING FORM — action="" wird mit Formspree-URL ersetzt wenn online -->
+          <form class="booking-form" id="booking-form" onsubmit="submitBooking(event)">
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-label">Name / Promoter</label>
+                <input class="form-input" type="text" id="f-name" name="name" placeholder="Dein Name" required>
+              </div>
+              <div class="form-field">
+                <label class="form-label">Email</label>
+                <input class="form-input" type="email" id="f-email" name="email" placeholder="deine@email.com" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-label">Gewünschtes Datum</label>
+                <div class="form-selected-date" id="f-date-display">Kalender wählen oder direkt eingeben</div>
+                <input class="form-input" type="date" id="f-date" name="date" style="margin-top:0.4rem;" required>
+              </div>
+              <div class="form-field">
+                <label class="form-label">Venue / Location</label>
+                <input class="form-input" type="text" id="f-venue" name="venue" placeholder="Club, Stadt" required>
+              </div>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Nachricht</label>
+              <textarea class="form-textarea" id="f-message" name="message" placeholder="Event-Details, Lineup, erwartetes Publikum, Set-Zeit, Budget-Rahmen..."></textarea>
+            </div>
+            <button type="submit" class="form-submit">Anfrage senden →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     TECHNICAL RIDER
+════════════════════════════════════════════ -->
+<section class="rider-section" id="rider">
+  <div class="section-label">05 — Technical Rider</div>
+  <h2 class="section-title reveal">Tech<br>Rider</h2>
+  <p class="reveal" style="color:var(--muted);font-size:0.9rem;margin-bottom:3rem;max-width:600px;line-height:1.7;">Bitte vor der Buchung lesen und bestätigen. Bei Fragen gerne per Email melden.</p>
+
+  <div class="rider-grid">
+    <div class="rider-card reveal">
+      <div class="rider-card-title">Equipment</div>
+      <div class="rider-item">
+        <div class="rider-dot"></div>
+        <div>
+          <div>2× CDJ-2000NXS2 oder CDJ-3000</div>
+          <div class="rider-note">Keine CDJ-900 oder ältere Modelle</div>
+        </div>
+      </div>
+      <div class="rider-item">
+        <div class="rider-dot"></div>
+        <div>
+          <div>1× DJM-900NXS2 (bevorzugt) oder DJM-750MK2</div>
+          <div class="rider-note">Allen &amp; Heath Xone:96 ebenfalls akzeptiert</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rider-card reveal">
+      <div class="rider-card-title">Promo</div>
+      <div class="rider-item">
+        <div class="rider-dot"></div>
+        <div>Artist-Name: <strong>anschi</strong> (kleingeschrieben)</div>
+      </div>
+      <div class="rider-item">
+        <div class="rider-dot"></div>
+        <div>Bio &amp; Pressefotos auf dieser Seite verfügbar</div>
+      </div>
+      <div class="rider-item">
+        <div class="rider-dot"></div>
+        <div>
+          <div>Social-Media-Tagging erwünscht</div>
+          <div class="rider-note">@frau.anschi</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     CONTACT
+     DEINE_EMAIL: ersetze frau.anschi@gmail.com mit deiner echten Email
+     LINKS_INSTAGRAM / LINKS_SOUNDCLOUD / LINKS_LINKTREE: echte URLs eintragen
+════════════════════════════════════════════ -->
+<section class="contact-section" id="contact">
+  <div class="section-label">06 — Get in Touch</div>
+  <h2 class="section-title reveal">Contact</h2>
+
+  <div class="contact-grid reveal">
+    <div class="contact-card">
+      <div class="contact-card-label">Bookings</div>
+      <!-- DEINE_EMAIL: ersetze frau.anschi@gmail.com -->
+      <div class="contact-card-value"><a href="/cdn-cgi/l/email-protection#89ebe6e6e2e0e7eec9e8e7faeae1e0a7edec"><span class="__cf_email__" data-cfemail="d7b5b8b8bcbeb9b097b6b9a4b4bfbef9b3b2">[email&#160;protected]</span></a></div>
+      <div class="contact-card-sub">Für Gig-Anfragen &amp; Kooperationen</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-card-label">Instagram</div>
+      <!-- LINKS_INSTAGRAM -->
+      <div class="contact-card-value"><a href="https://instagram.com/frau.anschi" target="_blank">@frau.anschi</a></div>
+      <div class="contact-card-sub">DMs offen für allgemeinen Kontakt</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-card-label">Antwortzeit</div>
+      <div class="contact-card-value">48 – 72h</div>
+      <div class="contact-card-sub">Email bevorzugt für Bookings</div>
+    </div>
+  </div>
+
+  <div class="social-row reveal">
+    <!-- LINKS_INSTAGRAM -->
+    <a href="https://instagram.com/frau.anschi" target="_blank" class="social-link">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      Instagram
+    </a>
+    <!-- LINKS_SOUNDCLOUD: ersetze # mit deiner SoundCloud URL -->
+    <a href="#" target="_blank" class="social-link">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 18v-2a5 5 0 0 1 5-5h.5"/><path d="M9 18V9a3 3 0 0 1 6 0v1h1a4 4 0 0 1 0 8H9z"/></svg>
+      SoundCloud
+    </a>
+    <!-- LINKS_LINKTREE: ersetze # mit deiner Linktree URL -->
+    <a href="#" target="_blank" class="social-link">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      Linktree
+    </a>
+    <a href="#rider" class="social-link">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
+      Tech Rider
+    </a>
+    <!-- DEINE_EMAIL: ersetze frau.anschi@gmail.com -->
+    <a href="/cdn-cgi/l/email-protection#b8dad7d7d3d1d6dff8d9d6cbdbd0d196dcdd" class="social-link">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Email
+    </a>
+  </div>
+</section>
+
+<footer>
+  <span class="logo">anschi</span>
+  <p>Berlin · Melodic Techno · Indie Dance · Progressive House</p>
+  <p id="footer-year"></p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  /* ============================================================
+     KALENDER_DATEN — hier deine Gigs & verfügbaren Dates pflegen
+     Format: 'YYYY-MM-DD'
+     bookedDates   = bereits gebuchte Dates (rot im Kalender)
+     upcomingGigs  = Liste der nächsten bestätigten Gigs
+  ============================================================ */
+  const bookedDates = [
+    '2026-03-07', '2026-03-08',
+    '2026-03-14', '2026-03-15',
+    '2026-04-04', '2026-04-05',
+    '2026-04-18', '2026-04-19',
+    '2026-05-02', '2026-05-03',
+    '2026-05-16', '2026-05-17',
+  ];
+
+  const upcomingGigs = [
+    { date: '2026-03-08', venue: 'Ritter Butzke', event: 'Insel der Visionen', city: 'Berlin' },
+    { date: '2026-03-15', venue: 'Sisyphos', event: 'Hammergarten', city: 'Berlin' },
+    { date: '2026-04-05', venue: 'Afrika Burn', event: 'Stage B', city: 'Tankwa Karoo, ZA' },
+    { date: '2026-04-19', venue: 'KitKat Club', event: 'CarneBall Bizarre', city: 'Berlin' },
+  ];
+  /* ============================================================ */
+
+  // CURSOR
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX; mouseY = e.clientY;
+    cursor.style.transform = `translate(${mouseX-6}px,${mouseY-6}px)`;
+  });
+  (function animateRing() {
+    ringX += (mouseX - ringX - 18) * 0.12;
+    ringY += (mouseY - ringY - 18) * 0.12;
+    ring.style.transform = `translate(${ringX}px,${ringY}px)`;
+    requestAnimationFrame(animateRing);
+  })();
+
+  // LANGUAGE
+  function setLang(lang) {
+    document.getElementById('bio-de').classList.toggle('hidden', lang !== 'de');
+    document.getElementById('bio-en').classList.toggle('hidden', lang !== 'en');
+    document.querySelectorAll('.lang-btn, .lang-tab').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent.toLowerCase().includes(lang) || btn.id === `btn-${lang}`);
+    });
+  }
+
+  // SCROLL REVEAL
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // FOOTER YEAR
+  document.getElementById('footer-year').textContent = `Press Kit ${new Date().getFullYear()}`;
+
+  // GIG TABS
+  function switchGigTab(tab) {
+    const tabs = ['past', 'calendar', 'booking'];
+    document.querySelectorAll('.gig-tab').forEach((btn, i) => btn.classList.toggle('active', tabs[i] === tab));
+    document.querySelectorAll('.gig-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + tab).classList.add('active');
+  }
+
+  // CALENDAR
+  let calYear, calMonth;
+  function initCal() {
+    const now = new Date();
+    calYear = now.getFullYear();
+    calMonth = now.getMonth();
+    renderCal();
+    renderUpcoming();
+  }
+  function calNav(dir) {
+    calMonth += dir;
+    if (calMonth > 11) { calMonth = 0; calYear++; }
+    if (calMonth < 0) { calMonth = 11; calYear--; }
+    renderCal();
+  }
+  function renderCal() {
+    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    document.getElementById('cal-month-label').textContent = `${months[calMonth]} ${calYear}`;
+    const now = new Date(); now.setHours(0,0,0,0);
+    let html = ['Mo','Tu','We','Th','Fr','Sa','Su'].map(d => `<div class="cal-day-header">${d}</div>`).join('');
+    let startDay = new Date(calYear, calMonth, 1).getDay();
+    startDay = startDay === 0 ? 6 : startDay - 1;
+    for (let i = 0; i < startDay; i++) html += `<div class="cal-day"></div>`;
+    const total = new Date(calYear, calMonth + 1, 0).getDate();
+    for (let d = 1; d <= total; d++) {
+      const date = new Date(calYear, calMonth, d);
+      const ds = date.toISOString().split('T')[0];
+      let cls = 'cal-day';
+      if (date < now) cls += ' past';
+      else if (bookedDates.includes(ds)) cls += ' booked';
+      else if ([5,6,0].includes(date.getDay())) cls += ' available';
+      if (date.getTime() === now.getTime()) cls += ' today';
+      const clickable = cls.includes('available');
+      html += `<div class="${cls}"${clickable ? ` onclick="pickDate('${ds}',this)"` : ''}>${d}</div>`;
+    }
+    document.getElementById('cal-grid').innerHTML = html;
+  }
+  function pickDate(ds, el) {
+    document.querySelectorAll('.cal-day.selected').forEach(d => d.classList.remove('selected'));
+    el.classList.add('selected');
+    const d = new Date(ds);
+    document.getElementById('f-date-display').textContent = d.toLocaleDateString('de-DE', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+    document.getElementById('f-date').value = ds;
+    switchGigTab('booking');
+    document.getElementById('panel-booking').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  function renderUpcoming() {
+    const ul = document.getElementById('upcoming-list');
+    const now = new Date(); now.setHours(0,0,0,0);
+    const future = upcomingGigs.filter(g => new Date(g.date) >= now).sort((a,b) => new Date(a.date)-new Date(b.date)).slice(0,5);
+    if (!future.length) { ul.innerHTML = '<li style="padding:1rem 0;color:var(--muted);font-family:\'DM Mono\',monospace;font-size:0.75rem;letter-spacing:0.1em;">No upcoming gigs confirmed yet.</li>'; return; }
+    ul.innerHTML = future.map(g => {
+      const label = new Date(g.date).toLocaleDateString('de-DE', { day:'2-digit', month:'short', year:'numeric' });
+      return `<li class="upcoming-item"><span class="upcoming-date-badge">${label}</span><div><div class="upcoming-venue">${g.venue}</div><div class="upcoming-event">${g.event} · ${g.city}</div></div></li>`;
+    }).join('');
+  }
+
+  // DATE INPUT SYNC
+  document.addEventListener('DOMContentLoaded', () => {
+    initCal();
+    const di = document.getElementById('f-date');
+    if (di) di.addEventListener('change', () => {
+      if (di.value) {
+        document.getElementById('f-date-display').textContent = new Date(di.value).toLocaleDateString('de-DE', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+      }
+    });
+  });
+
+  // BOOKING SUBMIT
+  // Für echtes Versenden: Formspree.io Account erstellen, Form-ID eintragen
+  // Dann: document.getElementById('booking-form').action = 'https://formspree.io/f/DEINE_ID';
+  function submitBooking(e) {
+    e.preventDefault();
+    const name = document.getElementById('f-name').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+    const date = document.getElementById('f-date').value;
+    const venue = document.getElementById('f-venue').value.trim();
+    const msg = document.getElementById('f-message').value.trim();
+    if (!name || !email || !date || !venue) { alert('Bitte Name, Email, Datum und Venue ausfüllen.'); return; }
+    // Öffnet Mail-App vorausgefüllt (funktioniert immer, auch ohne Backend)
+    const sub = encodeURIComponent(`Booking Request – ${date} – ${venue}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nDatum: ${date}\nVenue: ${venue}\n\nNachricht:\n${msg}`);
+    window.location.href = `mailto:frau.anschi@gmail.com?subject=${sub}&body=${body}`;
+    document.getElementById('booking-form').style.display = 'none';
+    document.getElementById('form-success').classList.add('show');
+  }
+</script>
+</body>
+</html>
